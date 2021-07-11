@@ -2,7 +2,7 @@
   <div>
     <Header />
     <Nuxt />
-    <Footer />
+    <!-- <Footer /> -->
   </div>
 </template>
 
@@ -14,19 +14,21 @@ export default {
     firebase.auth().onAuthStateChanged(user => {
       // const { uid, email } = user
       if (user) {
-        console.log("ユーザーあり");
         //userオブジェクトの中からemailとuidの情報のみ取得し、引数userに格納
         user = { email: user.email, uid: user.uid };
         this.setLoginUser(user);
+        this.fetchMealAC({ uid: user.uid });
+        this.fetchWeightAC({ uid: user.uid });
       } else if (!user) {
-        userNull = { email: "", uid: "" };
-        console.log("ユーザー無し");
-        this.deleteLoginUser(userNull);
+        user = { email: "", uid: "" };
+        this.deleteLoginUser(user);
       }
     });
   },
   methods: {
-    ...mapActions(["setLoginUser", "deleteLoginUser"])
+    ...mapActions(["setLoginUser", "deleteLoginUser"]),
+    ...mapActions("mealStore", ["fetchMealAC"]),
+    ...mapActions("weightStore", ["fetchWeightAC"])
   }
 };
 </script>

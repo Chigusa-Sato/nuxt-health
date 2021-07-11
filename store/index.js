@@ -27,8 +27,8 @@ export const mutations = {
   setLoginUserMU(state, user) {
     state.login_user = user;
   },
-  deleteLoginUserMU(state) {
-    state.login_user = userNull;
+  deleteLoginUserMU(state,user) {
+    state.login_user = user;
   }
 };
 
@@ -36,8 +36,8 @@ export const actions = {
   setLoginUser({ commit }, user) {
     commit("setLoginUserMU", user);
   },
-  deleteLoginUser({ commit, userNull }) {
-    commit("deleteLoginUserMU", userNull);
+  deleteLoginUser({ commit },user) {
+    commit("deleteLoginUserMU", user);
   },
   signIn({ commit }, { email, pass }) {
     console.log(email + pass);

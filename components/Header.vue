@@ -15,7 +15,6 @@
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
         <p>ログイン中：{{  getDisplayName }}</p><br>
-        <p>uid : {{getUserUid}}</p>
 
         <v-spacer></v-spacer>
 
@@ -23,7 +22,7 @@
         <router-link to="/signup">会員登録 |</router-link>
         <router-link to="/login">ログイン |</router-link>
         <router-link to="/meal">食事記録 |</router-link>
-        <router-link to="/record">体重記録</router-link>
+        <router-link to="/weight">体重記録</router-link>
         <v-btn @click="signOut">ログアウト</v-btn>
       </v-app-bar>
       <v-container

@@ -12,8 +12,8 @@
       </ul>
       </section>
       <section>
-      <v-btn depressed elevation="2" outlined>ログイン</v-btn>
-      <v-btn depressed elevation="2" outlined>会員登録</v-btn>
+      <router-link to="/login"><v-btn depressed elevation="2" outlined>ログイン</v-btn></router-link>
+      <router-link to="/signup"><v-btn depressed elevation="2" outlined>会員登録</v-btn></router-link>
       </section>
     </div>
   </body>
