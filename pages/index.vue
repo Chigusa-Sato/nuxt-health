@@ -10,9 +10,9 @@
                 <p>毎日の食事内容と体重の記録</p>
                 <p>食事内容の確認</p>
                 <p>体重のグラフ化</p>
+                </div>
                 <v-btn @click="logIn">ログイン</v-btn>
                 <v-btn @click="signUp">会員登録</v-btn>
-              </div>
             </div>
           </v-col>
         </v-row>
@@ -50,19 +50,19 @@ export default {
     color: rgb(29, 29, 29);
   }
   &-text {
-    color: rgb(29, 29, 29);
     text-align: center;
-    font-size: 28px;
-    font-weight: bold;
   }
 }
 .list {
   &-title {
+    color: rgb(75, 75, 75);
+    font-size: 45px;
     display: inline-block;
     margin-top: 50px;
   }
   &-text {
     margin: 70px;
+    font-size: 25px;
   }
 }
 .background {

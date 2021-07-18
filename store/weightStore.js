@@ -16,6 +16,13 @@ export const mutations = {
   },
   clearWeightStoreAC(state) {
     state.weights = [];
+  },
+  deleteWeightMU(state,{deleteWeightId}){
+    console.log("myuてしょんんん")  
+    let deleteWeightIndex = state.weights.findIndex(
+      weight => weight.id === deleteWeightId
+    );
+    state.weights.splice(deleteWeightIndex, 1);
   }
 };
 
@@ -43,6 +50,15 @@ export const actions = {
   },
   "clearWeightStore"({ commit }) {
     commit("clearWeightStoreAC");
+  },
+  deleteWeightAC({commit},{deleteWeightId,uid}){
+    console.log(deleteWeightId)
+        db.collection(`users/${uid}/weights`)
+      .doc(deleteWeightId)
+      .delete()
+      .then(() => {
+        commit("deleteWeightMU", { deleteWeightId });
+      });
   }
 };
 

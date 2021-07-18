@@ -31,7 +31,7 @@
                       <v-text-field
                         outlined
                         placeholder="lunch"
-                        prepend-icon="mdi-pasta"
+                        prepend-icon="mdi-noodles"
                         v-model="lunch"
                       />
                       <v-text-field
@@ -66,7 +66,7 @@
                         </template>
                       </v-text-field>
                       <v-text-field
-                        prepend-icon="mdi-arm-flex-outline"
+                        prepend-icon="mdi-foot-print"
                         label="kg"
                         v-model.number="weight"
                         outlined

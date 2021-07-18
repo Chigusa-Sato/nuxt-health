@@ -4,7 +4,7 @@
       <v-container class="basecard">
         <v-row>
           <v-spacer></v-spacer>
-          <v-col sm="2">
+          <v-col sm="3">
             <h1>体重グラフ</h1>
           </v-col>
           <v-spacer></v-spacer>
@@ -30,7 +30,7 @@
             ></v-select>
           </v-col>
           <v-col sm="2">
-            <v-btn  outlined color="teal" @click="select">
+            <v-btn outlined color="teal" @click="select">
               <v-icon>mdi-format-list-bulleted-square</v-icon>
             </v-btn>
           </v-col>
@@ -47,7 +47,7 @@
           v-show="!selectWeights.length && this.show == true"
         >
           <strong>{{ this.year }}/{{ this.month }}</strong>
-          のデータは未登録です<v-btn @click="fillData">全て表示</v-btn>
+          のデータは未登録です<v-btn @click="fillData" outlined>全て表示</v-btn>
         </v-alert>
         <v-alert dense type="error" v-show="this.unselected == true">
           選択してください
@@ -236,7 +236,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .small {
   width: 700px;
   margin: 0px auto;

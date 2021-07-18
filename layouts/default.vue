@@ -25,7 +25,12 @@
         <v-list-item>
           <v-list-item-avatar><v-icon>mdi-account</v-icon></v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>{{ getDisplayName }}</v-list-item-title>
+            <v-list-item-title v-if="getUserUid">{{
+              getDisplayName
+            }}</v-list-item-title>
+            <v-list-item-title v-if="!getUserUid"
+              >ログインしてください</v-list-item-title
+            >
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
@@ -76,10 +81,11 @@ export default {
     return {
       drawer: false,
       loginSideMenu: [
-        { title: "食事", icon: "mdi-food-fork-drink", link: { name: "meal" } },
+        { title: "食事一覧", icon: "mdi-food-fork-drink", link: { name: "meal" } },
+        { title: "体重一覧", icon: "mdi-foot-print", link: { name: "weight" } },
         {
           title: "体重グラフ",
-          icon: "mdi-camera-timer",
+          icon: "mdi-chart-line",
           link: { name: "weightChart" }
         },
         {

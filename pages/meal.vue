@@ -38,6 +38,20 @@
               </v-col>
               <v-spacer></v-spacer>
             </v-row>
+                <v-row>
+      <v-spacer></v-spacer>
+      <v-col sm="6">
+        <v-alert
+          dense
+          type="error"
+          v-show="!selectDates.length && this.show == true"
+        >
+          <strong>{{ this.year }}/{{ this.month }}</strong>
+          のデータは未登録です
+        </v-alert>
+      </v-col>
+      <v-spacer></v-spacer>
+    </v-row>
           </v-container>
         </v-form>
 
@@ -56,7 +70,7 @@
                   <v-card-text>
                     <v-icon>mdi-baguette</v-icon>{{ meal.morning }}
                     <v-divider></v-divider>
-                    <v-icon>mdi-pasta</v-icon>{{ meal.lunch }}
+                    <v-icon>mdi-noodles</v-icon>{{ meal.lunch }}
                     <v-divider></v-divider>
                     <v-icon>mdi-glass-wine</v-icon>{{ meal.dinner }}
                   </v-card-text>
@@ -85,6 +99,7 @@ export default {
   },
   data() {
     return {
+      show: false, //エラー文表示（該当なし）
       meals: [],
       selectDates: [],
       date: "",
@@ -145,14 +160,17 @@ export default {
         });
         //セレクトした日付と一致するデータが無かったら......
         if (this.selectDates.length) {
+          this.show = false;
           console.log(this.selectDates[0].date);
           console.log(this.selectDates);
           // this.getWeights=this.selectDates
         } else {
           console.log("データなし");
+          this.show = true;
         }
       } else {
         console.log("セレクトしてください");
+        this.show = true;
       }
     },
 
