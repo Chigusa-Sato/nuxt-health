@@ -2,37 +2,72 @@
   <body>
     <v-app>
       <v-content>
+        <v-form>
+          <v-container class="basecard">
+            <v-row>
+              <v-spacer></v-spacer>
+              <v-col sm="3">
+                <h1>食事内容一覧</h1>
+              </v-col>
+              <v-spacer></v-spacer>
+            </v-row>
+            <v-row>
+              <v-spacer></v-spacer>
+              <v-col sm="2">
+                <v-select
+                  :items="selectyear"
+                  v-model="year"
+                  outlined
+                  dense
+                  label="year"
+                ></v-select>
+              </v-col>
+              <v-col sm="2">
+                <v-select
+                  :items="selectmonth"
+                  v-model="month"
+                  outlined
+                  dense
+                  label="month"
+                ></v-select>
+              </v-col>
+              <v-col sm="2">
+                <v-btn outlined color="teal" @click="select">
+                  <v-icon>mdi-format-list-bulleted-square</v-icon>
+                </v-btn>
+              </v-col>
+              <v-spacer></v-spacer>
+            </v-row>
+          </v-container>
+        </v-form>
+
         <v-container>
-      <section>
-        <input type="date" v-model="date" /><br />
-        <input type="text" placeholder="morning" v-model="morning" /><br />
-        <input type="text" placeholder="lunch" v-model="lunch" /><br />
-        <input type="text" placeholder="dinner" v-model="dinner" /><br />
-        <v-btn @click="addMeal">記録する</v-btn>
-      </section>
-      <section>
-        <v-layout justify-space-around>
-          <v-flex xs12 sm12 md3>
-        <v-card
-          elevation="8"
-          outlined
-          tiled
-          v-for="(meal,index) in meals"
-          :key="index"
-        >
-          <v-card-title>{{ meal.date }}</v-card-title>
-          <v-card-text
-            >朝：{{ meal.morning }}<br />
-            昼：{{ meal.lunch }} <br />
-            夜：{{ meal.dinner }}
-          </v-card-text>
-          <v-card-actions><v-btn >編集</v-btn></v-card-actions>
-          <v-card-actions><v-btn @click="deleteMeal(meal)">削除</v-btn></v-card-actions>
-        </v-card>
-        </v-flex>
-        </v-layout>
-      </section>
-      </v-container>
+          <section>
+            <v-layout wrap>
+              <v-flex
+                sm4
+                md4
+                lg4
+                v-for="(meal, index) in sortDate"
+                :key="index"
+              >
+                <v-card outlined class="ma-3">
+                  <v-card-title>{{ meal.date }}</v-card-title>
+                  <v-card-text>
+                    <v-icon>mdi-baguette</v-icon>{{ meal.morning }}
+                    <v-divider></v-divider>
+                    <v-icon>mdi-pasta</v-icon>{{ meal.lunch }}
+                    <v-divider></v-divider>
+                    <v-icon>mdi-glass-wine</v-icon>{{ meal.dinner }}
+                  </v-card-text>
+                  <v-card-actions
+                    ><v-btn @click="mealEdit(meal)">編集</v-btn></v-card-actions
+                  >
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </section>
+        </v-container>
       </v-content>
     </v-app>
   </body>
@@ -40,21 +75,43 @@
 
 <script>
 import { mapActions } from "vuex";
+import DatePicker from "../components/DatePicker.vue";
 
 export default {
   head() {
     return {
-      title: "食事記録"
+      title: "食事記録一覧"
     };
   },
   data() {
     return {
+      meals: [],
+      selectDates: [],
       date: "",
       morning: "",
       lunch: "",
-      dinner: ""
-      //stateMeal:this.$store.state['mealstore/meals']
+      dinner: "",
+      selectyear: ["2020", "2021"],
+      selectmonth: [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      year: "",
+      month: ""
     };
+  },
+  components: {
+    DatePicker
   },
   methods: {
     addMeal() {
@@ -65,27 +122,70 @@ export default {
         dinner: this.dinner
       };
       this.addMealAC({ meal: meal, uid: this.uid });
-      this.date=""
-      this.morning=""
-      this.lunch=""
-      this.dinner=""
+      this.date = "";
+      this.morning = "";
+      this.lunch = "";
+      this.dinner = "";
     },
-    deleteMeal(meal) {
-      console.log(this.meals);
-      let deleteMeal = this.meals.find(stateMeal => stateMeal.id === meal.id);
-      console.log(deleteMeal.id);
-      this.deleteMealAC({ deleteMealId: deleteMeal.id, uid: this.uid });
+    mealEdit(meal) {
+      let editMeal = this.getMeals.find(stateMeal => stateMeal.id === meal.id);
+      this.$router.push({ path: "mealEdit", query: { id: editMeal.id } });
     },
+    //絞り込み処理------------------------------------------------
+    select() {
+      this.selectDates = [];
+      if (this.year && this.month) {
+        this.getMeals.forEach(meal => {
+          let string = meal.date;
+          let substring = this.year + "-" + this.month;
+          //セレクトした日付とデータが一致したらselectWeight配列にpush
+          if (string.indexOf(substring) > -1) {
+            this.selectDates.push(meal);
+          }
+        });
+        //セレクトした日付と一致するデータが無かったら......
+        if (this.selectDates.length) {
+          console.log(this.selectDates[0].date);
+          console.log(this.selectDates);
+          // this.getWeights=this.selectDates
+        } else {
+          console.log("データなし");
+        }
+      } else {
+        console.log("セレクトしてください");
+      }
+    },
+
     ...mapActions("mealStore", ["addMealAC", "deleteMealAC"])
   },
   computed: {
-    //...mapGetters(["getMeal"])
-    meals() {
-      return this.$store.getters["mealStore/getMeal"];
+    getMeals() {
+      if (!this.selectDates.length) {
+        return this.$store.getters["mealStore/getMeal"];
+      } else if (this.selectDates.length) {
+        return this.selectDates;
+      }
     },
     uid() {
       //rootのstoreのgettersの値をmaelStoreで使うため、引数にもたせるためによびだしている
       return this.$store.getters.getUserUid;
+    },
+
+    //日付順に表示する
+    sortDate() {
+      if (!this.selectDates.length) {
+        const sortMealDate = [...this.getMeals].sort(
+          (a, b) => new Date(a.date) - new Date(b.date)
+        );
+        return sortMealDate;
+
+        //return this.$store.getters["mealStore/getMeal"];
+      } else if (this.selectDates.length) {
+        const sortSelectMealDate = [...this.selectDates].sort(
+          (a, b) => new Date(a.date) - new Date(b.date)
+        );
+        return sortSelectMealDate;
+      }
     }
   }
 };

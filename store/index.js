@@ -1,17 +1,15 @@
 import firebase from "~/plugins/firebase";
-const db = firebase.firestore();
-//const todoRef = db.collection("foods");
 
 //ユーザー登録・認証系の処理----------------------------------------
 
 export const state = () => ({
   userUid: "",
   userName: "",
-  //foods: [],
   login_user: {
     email:"",
-    uid:""
-  }
+    uid:"",
+  },
+  drawer:false,
 });
 
 export const mutations = {
@@ -21,15 +19,15 @@ export const mutations = {
   setUserName(state, userName) {
     state.userName = userName;
   },
-  //   addTodo(state, food) {
-  //     state.foods.push(food);
-  //   },
   setLoginUserMU(state, user) {
     state.login_user = user;
   },
   deleteLoginUserMU(state,user) {
     state.login_user = user;
-  }
+  },
+  toggleSideMenu(state){
+    state.drawer = !state.drawer
+ },
 };
 
 export const actions = {
@@ -40,7 +38,6 @@ export const actions = {
     commit("deleteLoginUserMU", user);
   },
   signIn({ commit }, { email, pass }) {
-    console.log(email + pass);
     firebase
       .auth()
       .signInWithEmailAndPassword(email, pass)
@@ -58,21 +55,12 @@ export const actions = {
   },
   signOut() {
     firebase.auth().signOut();
-  }
-
-  //   fetchTodos({ commit }) {
-  //     todoRef
-  //       .get()
-  //       .then(res => {
-  //         res.forEach(doc => {
-  //           console.log("success : " + `${doc.id} => ${doc.data()}`);
-  //           commit("addTodo", doc.data());
-  //         });
-  //       })
-  //       .catch(error => {
-  //         console.log("error : " + error);
-  //       });
-  //   }
+    this.$router.push("/");
+  },
+  toggleSideMenu({commit}){
+    console.log("とぐる")
+    commit('toggleSideMenu');
+    },
 };
 
 export const getters = {

@@ -1,28 +1,24 @@
 <template>
   <div>
-    <v-card class="overflow-hidden">
       <v-app-bar
-        absolute
         color="#fcb69f"
-        dark
         shrink-on-scroll
         scroll-target="#scrolling-techniques-2"
       >
-        <template v-slot:img="{ props }">
+        <!-- <template v-slot:img="{ props }">
           <v-img v-bind="props"></v-img>
-        </template>
-
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
-        <p>ログイン中：{{  getDisplayName }}</p><br>
+        </template> -->
+        <v-app-bar-nav-icon @click.stop="toggleSideMenu"></v-app-bar-nav-icon>
+        <v-toolbar-title>{{ getDisplayName }}</v-toolbar-title>
+        
 
         <v-spacer></v-spacer>
-
-        <router-link to="/">ホーム |</router-link>
-        <router-link to="/signup">会員登録 |</router-link>
-        <router-link to="/login">ログイン |</router-link>
-        <router-link to="/meal">食事記録 |</router-link>
-        <router-link to="/weight">体重記録</router-link>
+      <v-btn><router-link to="/">ホーム</router-link></v-btn>
+      <v-btn><router-link to="/signup">会員登録 </router-link></v-btn>
+       <v-btn><router-link to="/login">ログイン </router-link> </v-btn> 
+       <v-btn><router-link to="/meal">食事</router-link> </v-btn> 
+        <v-btn><router-link to="/weightChart">体重</router-link> </v-btn> 
+       <v-btn><router-link to="/record">記録</router-link> </v-btn> 
         <v-btn @click="signOut">ログアウト</v-btn>
       </v-app-bar>
       <v-container
@@ -30,9 +26,8 @@
         fill-height
         align
         start
-        style="height: 127px;"
+        style="height: 200px;"
       ></v-container>
-    </v-card>
   </div>
 </template>
 
@@ -43,12 +38,12 @@ export default {
     getDisplayName() {
       return this.$store.getters.getDisplayName;
     },
-    getUserUid(){
+    getUserUid() {
       return this.$store.getters.getUserUid;
     }
   },
-  methods:{
-    ...mapActions(["signOut"])
+  methods: {
+    ...mapActions(["signOut","toggleSideMenu",])
   }
 };
 </script>
