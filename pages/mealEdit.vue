@@ -62,9 +62,7 @@ export default {
       this.dinner = "";
     },
     deleteMeal(id){
-      console.log(id);
       let deleteMeal = this.$store.getters["mealStore/getMeal"].find(getMeal => getMeal.id === id);
-      console.log(deleteMeal);
       this.deleteMealAC({ deleteMealId: deleteMeal.id, uid: this.uid });
     },
     updateMeal() {

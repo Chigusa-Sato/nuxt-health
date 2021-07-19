@@ -5,7 +5,7 @@
         <v-row>
           <v-spacer></v-spacer>
           <v-col sm="3">
-            <h1>体重グラフ</h1>
+            <h1>体重グラフ一覧</h1>
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
@@ -29,7 +29,7 @@
               label="month"
             ></v-select>
           </v-col>
-          <v-col sm="2">
+          <v-col sm="1">
             <v-btn outlined color="teal" @click="select">
               <v-icon>mdi-format-list-bulleted-square</v-icon>
             </v-btn>
@@ -47,7 +47,7 @@
           v-show="!selectWeights.length && this.show == true"
         >
           <strong>{{ this.year }}/{{ this.month }}</strong>
-          のデータは未登録です<v-btn @click="fillData" outlined>全て表示</v-btn>
+          のデータは未登録です<v-btn @click="fillData" outlined class="button-error">全て表示</v-btn>
         </v-alert>
         <v-alert dense type="error" v-show="this.unselected == true">
           選択してください
@@ -152,7 +152,6 @@ export default {
       if (this.selectWeights.length === 0) {
         return this.$store.getters["weightStore/getWeights"];
       } else if (this.selectWeights.length > 0) {
-        console.log("絞り込み開始");
         return this.selectWeights;
       }
     },
@@ -216,13 +215,11 @@ export default {
           };
         } //該当するデータが無ければエラー文を表示
         else if (!this.selectWeights.length) {
-          console.log("該当なし");
           this.show = true;
         }
       } //未選択でボタンを押した場合
       else {
         this.unselected = true;
-        console.log("セレクトしてください");
       }
       return this.selectWeights;
     },
@@ -240,5 +237,10 @@ export default {
 .small {
   width: 700px;
   margin: 0px auto;
+}
+.button{
+  &-error{
+    margin-left:10px;
+  }
 }
 </style>

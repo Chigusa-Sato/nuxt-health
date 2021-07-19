@@ -161,15 +161,11 @@ export default {
         //セレクトした日付と一致するデータが無かったら......
         if (this.selectDates.length) {
           this.show = false;
-          console.log(this.selectDates[0].date);
-          console.log(this.selectDates);
           // this.getWeights=this.selectDates
         } else {
-          console.log("データなし");
           this.show = true;
         }
       } else {
-        console.log("セレクトしてください");
         this.show = true;
       }
     },

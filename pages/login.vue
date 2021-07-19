@@ -46,11 +46,9 @@ export default {
   },
   methods: {
     login() {
-      console.log("login");
       this.$store.dispatch("login");
     },
     signIn() {
-      console.log("signIn");
       this.$store.dispatch("signIn", {
         email: this.email,
         pass: this.password

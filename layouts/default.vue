@@ -65,8 +65,6 @@
         </div>
       </v-list>
     </v-navigation-drawer>
-    <!-- side -->
-
     <Nuxt />
   </div>
 </template>
@@ -110,7 +108,6 @@ export default {
       ]
     };
   },
-
   computed: {
     filteredList() {
       return this.loginSideMenu.filter(item => {
@@ -147,10 +144,6 @@ export default {
         this.deleteLoginUser(user);
       }
     });
-  },
-  mounted() {
-    console.log(this.$store.state.weightStore.weights);
-    console.log(this.$store.state.mealStore.meals);
   },
   methods: {
     home() {

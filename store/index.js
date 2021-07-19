@@ -58,7 +58,6 @@ export const actions = {
     this.$router.push("/");
   },
   toggleSideMenu({commit}){
-    console.log("とぐる")
     commit('toggleSideMenu');
     },
 };

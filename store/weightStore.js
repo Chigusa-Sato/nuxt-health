@@ -12,13 +12,11 @@ export const mutations = {
   },
   fetchWeightMU(state, { weightFromDb }) {
     state.weights.push(weightFromDb);
-    //console.log("ミューテーションふぇっち"+weightFromDb)//正しくとれている
   },
   clearWeightStoreAC(state) {
     state.weights = [];
   },
   deleteWeightMU(state,{deleteWeightId}){
-    console.log("myuてしょんんん")  
     let deleteWeightIndex = state.weights.findIndex(
       weight => weight.id === deleteWeightId
     );
@@ -44,7 +42,6 @@ export const actions = {
           let weightFromDb = {};
           weightFromDb = { ...weight.data(), id: weight.id };
           commit("fetchWeightMU", { weightFromDb });
-          // console.log("フェッチアクション！" + weightFromDb);//正しくとれている
         });
       });
   },
@@ -52,7 +49,6 @@ export const actions = {
     commit("clearWeightStoreAC");
   },
   deleteWeightAC({commit},{deleteWeightId,uid}){
-    console.log(deleteWeightId)
         db.collection(`users/${uid}/weights`)
       .doc(deleteWeightId)
       .delete()
@@ -64,7 +60,6 @@ export const actions = {
 
 export const getters = {
   getWeights(state) {
-    console.log(state.weights); //既に倍増
     const stateweights = [...state.weights];
     const sortWeight = stateweights.sort(
       (a, b) => new Date(a.date) - new Date(b.date)
