@@ -8,12 +8,10 @@
         scroll-target="#scrolling-techniques-2"
       >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-        <v-toolbar-title>{{ getDisplayName }}</v-toolbar-title>
-
+        <v-toolbar-title @click="home"><img :src="require('@/assets/logo2.png')" /></v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn text @click="home">ホーム</v-btn>
-        <v-btn text @click="login">ログイン </v-btn>
-        <v-btn text @click="signOut">ログアウト</v-btn>
+        <v-btn text @click="login" v-if="!getUserUid">ログイン </v-btn>
+        <v-btn text @click="signOut" v-if="getUserUid">ログアウト</v-btn>
       </v-app-bar>
       <v-container fluid fill-height align start></v-container>
     </div>
@@ -43,7 +41,7 @@
             :to="item.link"
           >
             <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon class="side-icon">{{ item.icon }}</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
@@ -58,7 +56,7 @@
             :to="item.link"
           >
             <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon class="side-icon">{{ item.icon }}</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
@@ -81,7 +79,11 @@ export default {
     return {
       drawer: false,
       loginSideMenu: [
-        { title: "食事一覧", icon: "mdi-food-fork-drink", link: { name: "meal" } },
+        {
+          title: "食事一覧",
+          icon: "mdi-food-fork-drink",
+          link: { name: "meal" }
+        },
         { title: "体重一覧", icon: "mdi-foot-print", link: { name: "weight" } },
         {
           title: "体重グラフ",
@@ -176,5 +178,9 @@ body {
 }
 .routerLink {
   text-decoration: none;
+}
+.side-icon {
+  display: inline-block;
+  padding: 10px;
 }
 </style>
