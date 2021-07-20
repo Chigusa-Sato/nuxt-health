@@ -7,6 +7,10 @@
         </v-col>
         <v-spacer></v-spacer>
       </v-row>
+      <v-alert v-show="!this.getWeights.length" dense type="error"
+        >登録されたデータはありません</v-alert
+      >
+
       <v-simple-table>
         <template v-slot:default>
           <thead>

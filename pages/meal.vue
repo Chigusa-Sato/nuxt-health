@@ -1,7 +1,6 @@
 <template>
-  <body>
     <v-app>
-      <v-content>
+      <v-main>
         <v-form>
           <v-container class="basecard">
             <v-row>
@@ -49,12 +48,12 @@
           <strong>{{ this.year }}/{{ this.month }}</strong>
           のデータは未登録です
         </v-alert>
+        <v-alert v-show="!this.sortDate.length" dense type="error">登録されたデータはありません</v-alert>
       </v-col>
       <v-spacer></v-spacer>
     </v-row>
           </v-container>
         </v-form>
-
         <v-container>
           <section>
             <v-layout wrap>
@@ -82,9 +81,8 @@
             </v-layout>
           </section>
         </v-container>
-      </v-content>
+      </v-main>
     </v-app>
-  </body>
 </template>
 
 <script>

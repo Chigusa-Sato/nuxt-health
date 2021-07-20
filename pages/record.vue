@@ -1,8 +1,8 @@
 <template>
   <v-app class="bg">
-    <v-content>
-      <section class="home-hero">
-        <v-container fluid fill-height class="home-hero__content">
+    <v-main>
+        <section class="home-hero">
+          <v-container fluid fill-height class="home-hero__content">
             <v-row>
               <v-spacer></v-spacer>
               <v-col sm2 align="center">
@@ -71,21 +71,23 @@
                         v-model.number="weight"
                         outlined
                       />
-                      <v-card-actions>
-                        <v-btn @click="addWeight">追加</v-btn>
-                        <router-link to="/weightChart" class="routerLink"
-                          ><v-btn>一覧を見る</v-btn></router-link
-                        >
-                      </v-card-actions>
+                      <div class="buttons">
+                        <v-card-actions>
+                          <v-btn @click="addWeight">追加</v-btn>
+                          <router-link to="/weightChart" class="routerLink"
+                            ><v-btn>一覧を見る</v-btn></router-link
+                          >
+                        </v-card-actions>
+                      </div>
                     </v-form>
                   </v-card-text>
                 </v-card>
               </v-col>
               <v-spacer></v-spacer>
             </v-row>
-        </v-container>
-      </section>
-    </v-content>
+          </v-container>
+        </section>
+    </v-main>
   </v-app>
 </template>
 
@@ -161,10 +163,6 @@ export default {
   height: 800px;
   opacity: 0.9;
 }
-/* .bg {
-  background: url("~assets/healthy.jpg");
-} */
-
 .home-hero__content {
   background: url("@/assets/brooke-lark-GwNsgnSAfQM-unsplash.jpg");
   background-size: cover;
@@ -177,5 +175,8 @@ export default {
     font-size: 28px;
     font-weight: bold;
   }
+}
+.buttons {
+  padding-left: 25%;
 }
 </style>

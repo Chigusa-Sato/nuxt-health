@@ -41,13 +41,21 @@
     <v-row>
       <v-spacer></v-spacer>
       <v-col sm="6">
+        <v-alert v-show="!this.getWeights.length" dense type="error"
+          >登録されたデータはありません</v-alert
+        >
         <v-alert
           dense
           type="error"
           v-show="!selectWeights.length && this.show == true"
         >
           <strong>{{ this.year }}/{{ this.month }}</strong>
-          のデータは未登録です<v-btn @click="fillData" outlined class="button-error">全て表示</v-btn>
+          のデータは未登録です<v-btn
+            @click="fillData"
+            outlined
+            class="button-error"
+            >全て表示</v-btn
+          >
         </v-alert>
         <v-alert dense type="error" v-show="this.unselected == true">
           選択してください
@@ -238,9 +246,9 @@ export default {
   width: 700px;
   margin: 0px auto;
 }
-.button{
-  &-error{
-    margin-left:10px;
+.button {
+  &-error {
+    margin-left: 10px;
   }
 }
 </style>

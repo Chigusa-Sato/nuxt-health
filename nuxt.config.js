@@ -1,5 +1,5 @@
 export default {
-  ssr: true, 
+  ssr: true,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: "食事管理アプリ",
@@ -27,10 +27,7 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-    '@nuxtjs/vuetify',
-    '@nuxtjs/dotenv'
-  ],
+  buildModules: ["@nuxtjs/vuetify", "@nuxtjs/dotenv"],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -42,5 +39,10 @@ export default {
   axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {
+    dir: "dist"
+  },
+  generate: {
+    dir: "dist"
+  }
 };

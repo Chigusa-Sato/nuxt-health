@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-content>
+    <v-main>
       <v-container>
         <section>
           <v-card width="1000px" class="mx-auto mt-5">
@@ -26,7 +26,7 @@
           </v-card>
         </section>
       </v-container>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 

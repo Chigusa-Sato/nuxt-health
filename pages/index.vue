@@ -1,5 +1,4 @@
 <template>
-  <body>
     <section class="home-hero">
       <v-container fluid fill-height class="home-hero__content">
         <v-row>
@@ -18,7 +17,6 @@
         </v-row>
       </v-container>
     </section>
-  </body>
 </template>
 
 <script>

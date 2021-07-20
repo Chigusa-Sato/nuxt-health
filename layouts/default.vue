@@ -5,13 +5,12 @@
       <v-app-bar
         color="rgb(255, 251, 228)"
         shrink-on-scroll
-        scroll-target="#scrolling-techniques-2"
       >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title @click="home"><img :src="require('@/assets/logo2.png')" /></v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn text @click="login" v-if="!getUserUid">ログイン </v-btn>
-        <v-btn text @click="signOut" v-if="getUserUid">ログアウト</v-btn>
+        <v-btn text @click="login" v-show="!getUserUid">ログイン </v-btn>
+        <v-btn text @click="signOut" v-show="getUserUid">ログアウト</v-btn>
       </v-app-bar>
       <v-container fluid fill-height align start></v-container>
     </div>
@@ -23,10 +22,10 @@
         <v-list-item>
           <v-list-item-avatar><v-icon>mdi-account</v-icon></v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title v-if="getUserUid">{{
+            <v-list-item-title v-show="getUserUid">{{
               getDisplayName
             }}</v-list-item-title>
-            <v-list-item-title v-if="!getUserUid"
+            <v-list-item-title v-show="!getUserUid"
               >ログインしてください</v-list-item-title
             >
           </v-list-item-content>
@@ -34,7 +33,7 @@
         <v-divider></v-divider>
 
         <!-- ログアウト時のサイドナビメニュー -->
-        <div v-if="!getUserUid">
+        <div v-show="!getUserUid">
           <v-list-item
             v-for="(item, index) in logoutSideMenu"
             :key="index"
@@ -49,7 +48,7 @@
           </v-list-item>
         </div>
         <!-- ログイン時のサイドナビメニュー -->
-        <div v-else>
+        <div v-show="getUserUid">
           <v-list-item
             v-for="(item, index) in filteredList"
             :key="index"
