@@ -6,10 +6,10 @@ export const state = () => ({
   userUid: "",
   userName: "",
   login_user: {
-    email:"",
-    uid:"",
+    email: "",
+    uid: ""
   },
-  drawer:false,
+  drawer: false
 });
 
 export const mutations = {
@@ -22,19 +22,19 @@ export const mutations = {
   setLoginUserMU(state, user) {
     state.login_user = user;
   },
-  deleteLoginUserMU(state,user) {
+  deleteLoginUserMU(state, user) {
     state.login_user = user;
   },
-  toggleSideMenu(state){
-    state.drawer = !state.drawer
- },
+  toggleSideMenu(state) {
+    state.drawer = !state.drawer;
+  }
 };
 
 export const actions = {
   setLoginUser({ commit }, user) {
     commit("setLoginUserMU", user);
   },
-  deleteLoginUser({ commit },user) {
+  deleteLoginUser({ commit }, user) {
     commit("deleteLoginUserMU", user);
   },
   signIn({ commit }, { email, pass }) {
@@ -43,13 +43,13 @@ export const actions = {
       .signInWithEmailAndPassword(email, pass)
       .then(
         user => {
-          alert("Success!");
+          alert("ログインに成功しました");
           commit("setUserUid", user.uid);
           commit("setUserName", user.email);
           this.$router.push("/");
         },
         err => {
-          alert(err.message);
+          alert("Eメールまたはパスワードの値が異なっています");
         }
       );
   },
@@ -57,9 +57,9 @@ export const actions = {
     firebase.auth().signOut();
     this.$router.push("/");
   },
-  toggleSideMenu({commit}){
-    commit('toggleSideMenu');
-    },
+  toggleSideMenu({ commit }) {
+    commit("toggleSideMenu");
+  }
 };
 
 export const getters = {

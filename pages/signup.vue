@@ -7,22 +7,46 @@
         </v-card-title>
         <v-card-text>
           <v-form>
-            <v-text-field
-              prepend-icon="mdi-email"
-              label="Eメール"
-              v-model="email"
-            />
-            <v-text-field
-              v-bind:type="showPassword ? 'text' : 'password'"
-              @click:append="showPassword = !showPassword"
-              prepend-icon="mdi-lock"
-              v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              v-model="password"
-              label="パスワード"
-            />
-            <v-card-actions>
-              <v-btn @click="signUp">登録</v-btn>
-            </v-card-actions>
+            <ValidationObserver v-slot="ObserverProps">
+              <ValidationProvider name="Eメール" rules="required|email">
+                <div slot-scope="Providerprops">
+                  <v-text-field
+                    prepend-icon="mdi-email"
+                    label="Eメール"
+                    v-model="email"
+                  />
+                  <p class="message--error">
+                    {{ Providerprops.errors[0] }}
+                  </p>
+                </div>
+              </ValidationProvider>
+
+              <ValidationProvider name="パスワード" :rules="{ required: true,regex:/^[a-z\d]{6,12}$/i }">
+                <div slot-scope="Providerprops">
+                  <v-text-field
+                    v-bind:type="showPassword ? 'text' : 'password'"
+                    @click:append="showPassword = !showPassword"
+                    prepend-icon="mdi-lock"
+                    v-bind:append-icon="
+                      showPassword ? 'mdi-eye' : 'mdi-eye-off'
+                    "
+                    v-model="password"
+                    label="パスワード"
+                  />
+                  <p class="message--error">
+                    {{ Providerprops.errors[0] }}
+                  </p>
+                </div>
+              </ValidationProvider>
+
+              <v-card-actions>
+                <v-btn
+                  @click="signUp"
+                  :disabled="ObserverProps.invalid || !ObserverProps.validated"
+                  >登録</v-btn
+                >
+              </v-card-actions>
+            </ValidationObserver>
           </v-form>
         </v-card-text>
       </v-card>
@@ -31,7 +55,20 @@
 </template>
 
 <script>
-import firebase from "firebase";
+import firebase from "~/plugins/firebase";
+import ja from "vee-validate/dist/locale/ja.json";
+import {
+  localize,
+  extend,
+  ValidationObserver,
+  ValidationProvider
+} from "vee-validate";
+import { required, email,regex } from "vee-validate/dist/rules";
+extend("required", required);
+extend("email", email);
+extend("regex", regex);
+localize("ja", ja);
+
 export default {
   head() {
     return {
@@ -45,17 +82,21 @@ export default {
       showPassword: false
     };
   },
+  components: {
+    ValidationProvider,
+    ValidationObserver
+  },
   methods: {
     signUp: function() {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(result => {
-          alert("Create account: ", result.email);
-           this.$router.push({ path: "/" });
+          alert("アカウントを作成しました ", result);
+          this.$router.push({ path: "/" });
         })
         .catch(error => {
-          alert(error.message);
+          alert("既に登録されたアカウントです");
         });
     }
   }
@@ -68,5 +109,11 @@ export default {
   background-position: center center;
   width: 100%;
   height: 100vh;
+}
+.message {
+  &--error {
+    color: red;
+    font-size: 0.8rem;
+  }
 }
 </style>

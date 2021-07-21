@@ -40,7 +40,8 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    dir: "dist"
+    dir: "dist",
+    transpile: ['vee-validate/dist/rules'], 
   },
   generate: {
     dir: "dist"
